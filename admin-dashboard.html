@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teacher Dashboard — Attendance Management System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#4f46e5',
+                        secondary: '#10b981',
+                    },
+                    animation: {
+                        'drop-in': 'dropIn 0.5s ease-out forwards',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        dropIn: {
+                            '0%': { transform: 'translateY(-20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="bg-slate-50 min-h-screen relative overflow-x-hidden font-sans">
+
+    <!-- Modern Background -->
+    <div class="fixed inset-0 -z-10">
+        <div class="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-96 h-96 bg-purple-200/30 rounded-full blur-3xl animate-blob">
+        </div>
+        <div
+            class="absolute top-[20%] right-[-10%] w-96 h-96 bg-indigo-200/30 rounded-full blur-3xl animate-blob animation-delay-2000">
+        </div>
+        <div
+            class="absolute bottom-[-10%] left-[20%] w-96 h-96 bg-pink-200/30 rounded-full blur-3xl animate-blob animation-delay-4000">
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="bg-white/80 backdrop-blur-xl shadow-sm border-b border-gray-200 sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center gap-2">
+                    <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-lg">
+                        📋
+                    </div>
+                    <span
+                        class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-indigo-400">
+                        AttendanceMS
+                    </span>
+                </div>
+                <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-8 h-8 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-700 font-bold text-sm"
+                            id="userAvatar">
+                            T
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="text-sm font-medium text-gray-900" id="userName">Teacher</div>
+                            <div class="text-xs text-gray-500">Administrator</div>
+                        </div>
+                    </div>
+                    <button onclick="logout()"
+                        class="text-gray-500 hover:text-red-600 font-medium text-sm border border-gray-200 hover:border-red-200 rounded-lg px-3 py-1.5 transition-colors">
+                        Sign Out
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 animate-drop-in">
+
+        <div class="mb-8">
+            <h1 class="text-2xl font-bold text-gray-900 flex items-center gap-3">
+                Dashboard
+                <span
+                    class="px-3 py-1 rounded-full text-xs font-semibold bg-indigo-100 text-indigo-700 border border-indigo-200">
+                    TEACHER
+                </span>
+            </h1>
+            <p class="text-gray-500 mt-1">Welcome back! Manage your classroom attendance here.</p>
+        </div>
+
+        <!-- Stats Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center text-2xl mb-4">👥</div>
+                <div class="text-3xl font-bold text-gray-900">48</div>
+                <div class="text-sm text-gray-500">Total Students</div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center text-2xl mb-4">✅</div>
+                <div class="text-3xl font-bold text-gray-900">42</div>
+                <div class="text-sm text-gray-500">Present Today</div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-red-100 rounded-lg flex items-center justify-center text-2xl mb-4">⚠️</div>
+                <div class="text-3xl font-bold text-gray-900">4</div>
+                <div class="text-sm text-gray-500">Absent Today</div>
+            </div>
+
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
+                <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center text-2xl mb-4">🕑</div>
+                <div class="text-3xl font-bold text-gray-900">2</div>
+                <div class="text-sm text-gray-500">Late Arrivals</div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="mb-6">
+            <h2 class="text-lg font-semibold text-gray-800 mb-4">Quick Actions</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <a href="#" onclick="showToast('View Attendance — coming soon!', 'warning')"
+                    class="group bg-white p-6 rounded-xl border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all text-center">
+                    <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">📊</div>
+                    <h3 class="font-semibold text-gray-900">View Report</h3>
+                    <p class="text-xs text-gray-500 mt-1">Check all records</p>
+                </a>
+
+                <a href="#" onclick="showToast('Take Attendance — coming soon!', 'warning')"
+                    class="group bg-white p-6 rounded-xl border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all text-center">
+                    <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">➕</div>
+                    <h3 class="font-semibold text-gray-900">Take Attendance</h3>
+                    <p class="text-xs text-gray-500 mt-1">Mark for today</p>
+                </a>
+
+                <a href="#" onclick="showToast('Update Record — coming soon!', 'warning')"
+                    class="group bg-white p-6 rounded-xl border border-gray-200 hover:border-indigo-500 hover:shadow-md transition-all text-center">
+                    <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">✏️</div>
+                    <h3 class="font-semibold text-gray-900">Update Record</h3>
+                    <p class="text-xs text-gray-500 mt-1">Correct mistakes</p>
+                </a>
+
+                <a href="#" onclick="showToast('Delete Record — coming soon!', 'warning')"
+                    class="group bg-white p-6 rounded-xl border border-gray-200 hover:border-red-500 hover:shadow-md transition-all text-center">
+                    <div class="text-3xl mb-3 group-hover:scale-110 transition-transform">🗑️</div>
+                    <h3 class="font-semibold text-gray-900">Delete Record</h3>
+                    <p class="text-xs text-gray-500 mt-1">Remove entries</p>
+                </a>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="auth.js"></script>
+    <script>
+        // Protect this page — Teacher only
+        if (!requireAuth(['Teacher'])) {
+            // requireAuth will redirect
+        } else {
+            const user = getUser();
+            if (user) {
+                document.getElementById('userName').textContent = user.name;
+                document.getElementById('userAvatar').textContent = getUserInitials(user.name);
+            }
+        }
+    </script>
+</body>
+
+</html>
